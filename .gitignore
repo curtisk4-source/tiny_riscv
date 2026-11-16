@@ -1,0 +1,16 @@
+db/
+incremental_db/
+output_files/
+greybox_tmp/
+
+*.rpt
+*.summary
+*.jdi
+*.pin
+*.qws
+*.smsg
+*.done
+*.bak
+
+.DS_Store
+Thumbs.db
