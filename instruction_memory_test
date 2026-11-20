@@ -1,0 +1,84 @@
+#! /ucrt64/bin/vvp
+:ivl_version "13.0 (stable)" "(v13_0)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\msys64\ucrt64\lib\ivl\system.vpi";
+:vpi_module "C:\msys64\ucrt64\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\msys64\ucrt64\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\msys64\ucrt64\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\msys64\ucrt64\lib\ivl\va_math.vpi";
+S_0000017e8f918250 .scope module, "tb_instruction_memory" "tb_instruction_memory" 2 3;
+ .timescale -9 -12;
+v0000017e8f975620_0 .net "instruction", 31 0, L_0000017e8f91cc60;  1 drivers
+v0000017e8f975ee0_0 .var "pc", 31 0;
+S_0000017e8f91c330 .scope module, "uut" "instruction_memory" 2 9, 3 1 0, S_0000017e8f918250;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "pc";
+    .port_info 1 /OUTPUT 32 "instruction";
+L_0000017e8f91cc60 .functor BUFZ 32, L_0000017e8f9763e0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0000017e8f8d1000_0 .net *"_ivl_0", 31 0, L_0000017e8f9763e0;  1 drivers
+v0000017e8f8d0600_0 .net *"_ivl_3", 7 0, L_0000017e8f975f80;  1 drivers
+v0000017e8f8d09c0_0 .net *"_ivl_4", 9 0, L_0000017e8f975d00;  1 drivers
+L_0000017e8fd10088 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0000017e8f8d0740_0 .net *"_ivl_7", 1 0, L_0000017e8fd10088;  1 drivers
+v0000017e8f8d0a60_0 .net "instruction", 31 0, L_0000017e8f91cc60;  alias, 1 drivers
+v0000017e8f976a20 .array "mem", 255 0, 31 0;
+v0000017e8f975e40_0 .net "pc", 31 0, v0000017e8f975ee0_0;  1 drivers
+L_0000017e8f9763e0 .array/port v0000017e8f976a20, L_0000017e8f975d00;
+L_0000017e8f975f80 .part v0000017e8f975ee0_0, 2, 8;
+L_0000017e8f975d00 .concat [ 8 2 0 0], L_0000017e8f975f80, L_0000017e8fd10088;
+    .scope S_0000017e8f91c330;
+T_0 ;
+    %vpi_call 3 10 "$readmemh", "program.mem", v0000017e8f976a20 {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0000017e8f918250;
+T_1 ;
+    %vpi_call 2 16 "$dumpfile", "instruction_memory.vcd" {0 0 0};
+    %vpi_call 2 17 "$dumpvars", 32'sb00000000000000000000000000000000, S_0000017e8f918250 {0 0 0};
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0000017e8f975ee0_0, 0, 32;
+    %delay 10000, 0;
+    %vpi_call 2 22 "$display", "PC = %h | Instruction = %h", v0000017e8f975ee0_0, v0000017e8f975620_0 {0 0 0};
+    %load/vec4 v0000017e8f975620_0;
+    %cmpi/ne 10485907, 0, 32;
+    %jmp/0xz  T_1.0, 6;
+    %vpi_call 2 26 "$display", "FAIL: Instruction 0" {0 0 0};
+    %jmp T_1.1;
+T_1.0 ;
+    %vpi_call 2 28 "$display", "PASS: Instruction 0" {0 0 0};
+T_1.1 ;
+    %pushi/vec4 4, 0, 32;
+    %store/vec4 v0000017e8f975ee0_0, 0, 32;
+    %delay 10000, 0;
+    %vpi_call 2 33 "$display", "PC = %h | Instruction = %h", v0000017e8f975ee0_0, v0000017e8f975620_0 {0 0 0};
+    %load/vec4 v0000017e8f975620_0;
+    %cmpi/ne 20971795, 0, 32;
+    %jmp/0xz  T_1.2, 6;
+    %vpi_call 2 37 "$display", "FAIL: Instruction 1" {0 0 0};
+    %jmp T_1.3;
+T_1.2 ;
+    %vpi_call 2 39 "$display", "PASS: Instruction 1" {0 0 0};
+T_1.3 ;
+    %pushi/vec4 8, 0, 32;
+    %store/vec4 v0000017e8f975ee0_0, 0, 32;
+    %delay 10000, 0;
+    %vpi_call 2 44 "$display", "PC = %h | Instruction = %h", v0000017e8f975ee0_0, v0000017e8f975620_0 {0 0 0};
+    %load/vec4 v0000017e8f975620_0;
+    %cmpi/ne 2130355, 0, 32;
+    %jmp/0xz  T_1.4, 6;
+    %vpi_call 2 48 "$display", "FAIL: Instruction 2" {0 0 0};
+    %jmp T_1.5;
+T_1.4 ;
+    %vpi_call 2 50 "$display", "PASS: Instruction 2" {0 0 0};
+T_1.5 ;
+    %vpi_call 2 52 "$display", "Instruction Memory Testing Complete" {0 0 0};
+    %vpi_call 2 54 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "instruction_memory_tb.v";
+    "instruction_memory.v";
