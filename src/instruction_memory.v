@@ -3,22 +3,17 @@ module instruction_memory (
 	output wire [31:0] instruction
 );
 
-	// 256 words of 32-bit instruction memory
-	reg [31:0] mem [0:255];
+	reg [31:0] memory [0:1023];
 
 	integer i;
 
 	initial begin
+		for (i = 0; i < 1024; i = i + 1)
+			memory[i] = 32'h00000013;
 
-		// Initialize unused memory with RISC-V NOP instructions
-		for (i = 0; i < 256; i = i + 1)
-			mem[i] = 32'h00000013;
-
-		// Load compiled RISC-V program
-		$readmemh("program.mem", mem);
-
+		$readmemh("C:/Users/Kevin/OneDrive/Desktop/ECE287/tiny_riscv/software/program.mem", memory);
 	end
 
-	assign instruction = mem[pc[9:2]];
+	assign instruction = memory[pc[11:2]];
 
 endmodule

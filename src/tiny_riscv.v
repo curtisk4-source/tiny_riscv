@@ -1,4 +1,3 @@
-
 module tiny_riscv (
 	input wire clk,
 	input wire reset
